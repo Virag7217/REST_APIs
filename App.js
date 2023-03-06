@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 const multer = require("multer");
-const graphqlHttp = require("express-graphql");
+const graphqlHttp = require("express-graphql").graphqlHTTP;
 
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolver");
@@ -52,6 +52,7 @@ app.use(
   graphqlHttp({
     schema: graphqlSchema,
     rootValue: graphqlResolver,
+    graphiql:true
   })
 );
 
