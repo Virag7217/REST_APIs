@@ -49,14 +49,13 @@ app.use((req, res, next) => {
 app.use("/feed", feedRoutes);
 app.use("/auth", authRoutes);
 
-
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;
-  
-  res.status(status).json({ message , data });
+
+  res.status(status).json({ message, data });
 });
 
 mongoose
@@ -65,8 +64,12 @@ mongoose
   )
   .then((result) => {
     const port = 3080;
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
+    });
+    const io = require("socket.io")(server);
+    io.on("connection", (socket) => {
+      console.log("Client Connected!!");
     });
   })
   .catch((err) => {
