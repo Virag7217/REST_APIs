@@ -6,6 +6,7 @@ const fs = require("fs");
 const multer = require("multer");
 const graphqlHttp = require("express-graphql").graphqlHTTP;
 const auth = require("./middleware/auth");
+const { clearImage} = require('./utility/file');
 
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolver");
